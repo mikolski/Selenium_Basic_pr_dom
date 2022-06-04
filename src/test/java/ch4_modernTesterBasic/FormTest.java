@@ -56,7 +56,7 @@ public class FormTest extends TestBase {
         seleniumCommands.selectByValue("navigation-commands");
 
         WebElement fileUpload = driver.findElement(By.id("chooseFile"));
-        File file = new File("src/main/resources/file.txt");
+        File file = new File("src/main/resources/forTestingPurposeFile.txt");
 
         fileUpload.sendKeys(file.getAbsolutePath());
 
