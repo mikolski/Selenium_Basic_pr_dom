@@ -16,6 +16,7 @@ public class DataPickerExc extends TestBase {
     @Test
     public void shouldChooseDate(){
         String dateToChoose = "08/31/2022";
+
         //1. Wejdź na stronę https://seleniumui.moderntester.pl/datepicker.php
         driver.get("https://seleniumui.moderntester.pl/datepicker.php");
 
@@ -33,7 +34,7 @@ public class DataPickerExc extends TestBase {
         dataPickerNextMonth = driver.findElement(By.cssSelector(".ui-datepicker-next"));
         dataPickerNextMonth.click();
 
-        WebElement chosenDayList = driver.findElement(By.xpath("//*[@data-month='7']/*[text() ='31']"));//"//*[text() ='31']/..[@data-month='7']"));
+        WebElement chosenDayList = driver.findElement(By.xpath("//*[@data-month='7']/*[text() ='31']"));
         chosenDayList.click();
 
         //3. Sprawdź asercją czy w inpucie pojawiła się data: 08/31/2022
@@ -41,12 +42,11 @@ public class DataPickerExc extends TestBase {
         WebElement chosenDateElement = driver.findElement(By.cssSelector(".ui-datepicker-current-day"));
         int actuallyChosenMonth = Integer.parseInt(chosenDateElement.getAttribute("data-month"))+1;
         String actuallyChosenMonthText = actuallyChosenMonth < 10 ? "0"+ actuallyChosenMonth: String.valueOf(actuallyChosenMonth);
-        //TODO: chyba trzeba waita wstawić żeby poczekac na zapalenie na niebiesko na dacie
+
         WebElement actuallyChosenDay = chosenDateElement.findElement(By.cssSelector(".ui-state-active"));
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(actuallyChosenDay));
-
-
 
         String actuallyChosenDate = actuallyChosenMonthText + "/" +
                 actuallyChosenDay.getText() + "/" + chosenDateElement.getAttribute("data-year");
